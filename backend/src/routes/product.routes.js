@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/product.controller');
+const validate = require('../middleware/validate');
+const s = require('../validators/schemas');
+router.get('/', validate(s.listProducts, 'query'), c.list);
+router.get('/brands', c.brands);
+router.get('/:id', validate(s.idParam, 'params'), c.get);
+router.post('/', validate(s.createProduct), c.create);
+router.put('/:id', validate(s.idParam, 'params'), validate(s.updateProduct), c.update);
+router.delete('/:id', validate(s.idParam, 'params'), c.remove);
+module.exports = router;
